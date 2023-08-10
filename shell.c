@@ -10,5 +10,5 @@
  */
 int main(int argc, char **argv, char **env)
 {
-	printf ("hello world\n");
+	printf("hello world\n");
 }

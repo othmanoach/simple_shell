@@ -6,7 +6,7 @@ int main(void)
     char input[MAX_INPUT_LENGTH];
     char *args[MAX_INPUT_LENGTH];
     char *token = strtok(input, " ");
-    int i = 0;
+	int status;
 
     while (running)
     {
@@ -30,19 +30,25 @@ int main(void)
         }
 		else
 		 {
-            input[strlen(input) - 1] = '\0';
-            while (token != NULL)
+            pid_t pid = fork();
+            
+            if (pid == -1)
             {
-			{
-                args[i++] = token;
-                token = strtok(NULL, " ");
+                perror("fork");
+                return 1;
             }
-            args[i] = NULL;
-            if (execvp(args[0], args) == -1)
+            else if (pid == 0)
             {
-                perror("execvp");
+                if (execlp(input, input, NULL) == -1)
+                {
+                    perror("execve");
+                    return 1;
+                }
             }
-			}
+            else
+            {
+                waitpid(pid, &status, 0);
+            }
         }
     }
 

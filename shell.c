@@ -33,7 +33,7 @@ int main(void)
         }
         shell_helper(input);
     }
-    return 0;
+    return (0);
 }
 /**
  * shell_helper - function that executes the shell
@@ -50,14 +50,14 @@ int shell_helper(char *input)
     if (pid == -1)
     {
         perror("fork");
-        return 1;
+        return (1);
     }
     else if (pid == 0)
     {
         if (execlp(input, input, NULL) == -1)
         {
             perror("execve");
-            return 1;
+            return (1);
         }
     }
     else
@@ -65,8 +65,8 @@ int shell_helper(char *input)
         if (waitpid(pid, &status, 0) == -1)
         {
             perror("waitpid");
-            return 1;
+            return (1);
         }
     }
-    return 0;
+    return (0);
 }

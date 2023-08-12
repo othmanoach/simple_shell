@@ -40,29 +40,35 @@ int shell_helper(char *input)
 {
     char *args[MAX_INPUT_LENGTH];
     char *token = strtok(input, " ");
-	char command[MAX_INPUT_LENGTH];
-	int j = 0;
+    char command[MAX_INPUT_LENGTH];
     int i = 0;
-    
+
     while (token != NULL)
     {
         args[i++] = token;
         token = strtok(NULL, " ");
     }
     args[i] = NULL;
-    
     command[0] = '\0';
-   
-    while (args[j] != NULL)
+    for (int j = 0; args[j] != NULL; j++)
     {
         strcat(command, args[j]);
         strcat(command, " ");
-        j++;
     }
+    pid_t child_pid = fork();
 
-    if (system(command) != 0)
+    if (child_pid == -1) return (-1);
+
+    if (child_pid == 0)
     {
-        perror("shell_dial_sb3");
+        if (system(command) != 0) exit(1);
+        exit(0);
+    }
+    else
+    {
+        int status;
+        waitpid(child_pid, &status, 0);
+        if (WIFEXITED(status) && WEXITSTATUS(status) != 0) perror("shell_dial_sb3");
     }
     return (0);
 }

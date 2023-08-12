@@ -4,8 +4,6 @@ int main(void)
 {
     bool running = true;
     char input[MAX_INPUT_LENGTH];
-    char *args[MAX_INPUT_LENGTH];
-    char *token = strtok(input, " ");
 	int status;
 
     while (running)

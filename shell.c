@@ -41,6 +41,7 @@ int shell_helper(char *input)
     char *args[MAX_INPUT_LENGTH];
     char *token = strtok(input, " ");
 	char command[MAX_INPUT_LENGTH];
+	int j = 0;
     int i = 0;
     
     while (token != NULL)
@@ -50,12 +51,13 @@ int shell_helper(char *input)
     }
     args[i] = NULL;
     
-    
     command[0] = '\0';
-    for (int j = 0; j < i; j++)
+   
+    while (args[j] != NULL)
     {
         strcat(command, args[j]);
         strcat(command, " ");
+        j++;
     }
 
     if (system(command) != 0)

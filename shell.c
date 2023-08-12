@@ -41,17 +41,21 @@ int shell_helper(char *input)
     char *args[MAX_INPUT_LENGTH];
     char *token;
     int i = 0;
-	pid_t child_pid
+    pid_t child_pid;
 
     token = strtok(input, " ");
+    
     while (token != NULL)
     {
         args[i++] = token;
         token = strtok(NULL, " ");
     }
     args[i] = NULL;
+
     child_pid = fork();
+
     if (child_pid == -1) return (-1);
+
     if (child_pid == 0)
     {
         execve(args[0], args, NULL);
@@ -64,5 +68,6 @@ int shell_helper(char *input)
         waitpid(child_pid, &status, 0);
         if (WIFEXITED(status) && WEXITSTATUS(status) != 0) perror("shell_dial_sb3");
     }
+
     return (0);
 }

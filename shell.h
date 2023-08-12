@@ -27,7 +27,7 @@ char *_strcat(char *dest, char *src);
 int _strcmp(char *s1, char *s2);
 
 /* compare two strings */
-int _strncmp(char *s1, char *s2, size_t n);
+int _strncmp(const char *s1, const char *s2, size_t n);
 
 /* copies a string */
 char *_strcpy(char *dest, char *src);
@@ -60,3 +60,4 @@ char *_memcpy(char *dest, char *src, unsigned int n);
 
 /* --------------Memory functions------------------- */
 
+#endif /* SHELL_H */

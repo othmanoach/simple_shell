@@ -39,17 +39,18 @@ int main(void)
 int shell_helper(char *input)
 {
     char *args[MAX_INPUT_LENGTH];
-    char *token = strtok(input, " ");
-    char command[MAX_INPUT_LENGTH];
+    char *token;
     int i = 0;
-    
+	pid_t child_pid
+
+    token = strtok(input, " ");
     while (token != NULL)
     {
         args[i++] = token;
         token = strtok(NULL, " ");
     }
     args[i] = NULL;
-    pid_t child_pid = fork();
+    child_pid = fork();
     if (child_pid == -1) return (-1);
     if (child_pid == 0)
     {

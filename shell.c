@@ -41,13 +41,23 @@ int shell_helper(char *input)
     char *args[MAX_INPUT_LENGTH];
     char *token = strtok(input, " ");
     int i = 0;
+    
     while (token != NULL)
     {
         args[i++] = token;
         token = strtok(NULL, " ");
     }
     args[i] = NULL;
-    if (system(args) != 0)
+    
+    char command[MAX_INPUT_LENGTH];
+    command[0] = '\0';
+    for (int j = 0; j < i; j++)
+    {
+        strcat(command, args[j]);
+        strcat(command, " ");
+    }
+
+    if (system(command) != 0)
     {
         perror("shell_dial_sb3");
     }

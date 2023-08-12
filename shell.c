@@ -27,7 +27,7 @@ int main(void)
         }
 		else
 		{
-			system(input);
+			execve(input, NULL, NULL);
 		}
     }
     

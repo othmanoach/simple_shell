@@ -66,7 +66,6 @@ int shell_helper(char *input)
     {
         int status;
         waitpid(child_pid, &status, 0);
-        if (WIFEXITED(status) && WEXITSTATUS(status) != 0) perror("shell_dial_sb3");
     }
 
     return (0);

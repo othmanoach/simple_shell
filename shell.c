@@ -33,6 +33,7 @@ int main(void)
             input[strlen(input) - 1] = '\0';
             while (token != NULL)
             {
+			{
                 args[i++] = token;
                 token = strtok(NULL, " ");
             }
@@ -41,6 +42,7 @@ int main(void)
             {
                 perror("execvp");
             }
+			}
         }
     }
 

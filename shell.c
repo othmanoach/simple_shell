@@ -1,7 +1,5 @@
 #include "shell.h"
 
-int shell_helper(char *input);
-
 /**
  * main - function that executes the shell
  *
@@ -15,18 +13,20 @@ int main(void)
     while (running)
     {
         if (isatty(STDIN_FILENO))
-            write(STDOUT_FILENO, "#shell_dial_sb3$ ", 17);
+            _puts("#shell_dial_sb3$ ");
         else
             running = false;
 
         if (fgets(input, MAX_INPUT_LENGTH, stdin) == NULL)
         {
+            if (isatty(STDIN_FILENO))
+                _puts("\n"); // Print a newline for Ctrl+D
             break;
         }
         if (input[0] == '\n')
             continue;
 
-        if (strcmp(input, "exit\n") == 0)
+        if (_strcmp(input, "exit\n") == 0)
         {
             running = false;
             continue;
@@ -43,22 +43,26 @@ int shell_helper(char *input)
     int i = 0;
     pid_t child_pid;
 
-    token = strtok(input, " ");
-    
+    token = strtok(input, " \n"); // Include newline in delimiter
+
     while (token != NULL)
     {
         args[i++] = token;
-        token = strtok(NULL, " ");
+        token = strtok(NULL, " \n"); // Include newline in delimiter
     }
     args[i] = NULL;
 
     child_pid = fork();
 
-    if (child_pid == -1) return (-1);
+    if (child_pid == -1)
+    {
+        perror("fork");
+        return (-1);
+    }
 
     if (child_pid == 0)
     {
-        execve(args[0], args, NULL);
+        execve(args[0], args, env);
         perror("shell_dial_sb3");
         exit(1);
     }

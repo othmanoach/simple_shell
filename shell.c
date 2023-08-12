@@ -37,33 +37,25 @@ int main(void)
 }
 
 int shell_helper(char *input)
-int shell_helper(char *input)
 {
     char *args[MAX_INPUT_LENGTH];
     char *token = strtok(input, " ");
     char command[MAX_INPUT_LENGTH];
-	pid_t child_pid = fork();
-    int i = 0, j;
-
+    int i = 0;
+    
     while (token != NULL)
     {
         args[i++] = token;
         token = strtok(NULL, " ");
     }
     args[i] = NULL;
-    command[0] = '\0';
-    for (j = 0; args[j] != NULL; j++)
-    {
-        strcat(command, args[j]);
-        strcat(command, " ");
-    }
-    
+    pid_t child_pid = fork();
     if (child_pid == -1) return (-1);
-
     if (child_pid == 0)
     {
-        if (system(command) != 0) exit(1);
-        exit(0);
+        execve(args[0], args, NULL);
+        perror("shell_dial_sb3");
+        exit(1);
     }
     else
     {

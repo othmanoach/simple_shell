@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shell.c"
 
 /**
  * main - Entry point
@@ -10,5 +10,5 @@
  */
 int main(int argc, char **argv, char **env)
 {
-	printf("hello world\n");
+	
 }

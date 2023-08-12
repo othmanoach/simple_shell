@@ -18,8 +18,8 @@ int main(void)
 			write(STDOUT_FILENO, "#shell_dial_sb3$", 16);
 		else
 			running = false;
-		fgets(input, sizeof(input), stdin)
-		if (input == NULL)
+		
+		if (fgets(input, 1024, stdin) == NULL)
 		{
 			break;
 		}

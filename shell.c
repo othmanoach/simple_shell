@@ -37,11 +37,13 @@ int main(void)
 }
 
 int shell_helper(char *input)
+int shell_helper(char *input)
 {
     char *args[MAX_INPUT_LENGTH];
     char *token = strtok(input, " ");
     char command[MAX_INPUT_LENGTH];
-    int i = 0;
+	pid_t child_pid = fork();
+    int i = 0, j;
 
     while (token != NULL)
     {
@@ -50,13 +52,12 @@ int shell_helper(char *input)
     }
     args[i] = NULL;
     command[0] = '\0';
-    for (int j = 0; args[j] != NULL; j++)
+    for (j = 0; args[j] != NULL; j++)
     {
         strcat(command, args[j]);
         strcat(command, " ");
     }
-    pid_t child_pid = fork();
-
+    
     if (child_pid == -1) return (-1);
 
     if (child_pid == 0)

@@ -1,5 +1,5 @@
 #include "shell.h"
-
+void shell_helper(char *input);
 int main(void)
 {
     bool running = true;
@@ -17,8 +17,15 @@ int main(void)
         {
             break;
         }
+        shell_helper(input);
+    }
 
-        if (input[0] == '\n')
+    return 0;
+}
+
+void shell_helper(char *input)
+{
+	if (input[0] == '\n')
             continue;
 
         if (_strcmp(input, "exit\n") == 0)
@@ -48,7 +55,4 @@ int main(void)
                 waitpid(pid, &status, 0);
             }
         }
-    }
-
-    return 0;
 }

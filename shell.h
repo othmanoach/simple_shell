@@ -11,7 +11,7 @@
 #include <ctype.h>
 
 /* Global variables */
-
+#define MAX_INPUT_LENGTH 1024
 extern char **env;
 
 /* ------------String functions--------------------- */

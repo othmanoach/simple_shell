@@ -43,30 +43,18 @@ int main(void)
  */
 int shell_helper(char *input)
 {
-	input[strcspn(input, "\n")] = '\0';
-	pid_t pid = fork();
-	int status;
-
-	if (pid == -1)
+	char *args[MAX_INPUT_LENGTH];
+	char *token = strtok(input, " ");
+	int i = 0;
+	while (token != NULL)
 	{
-		perror("fork");
-		return (1);
+		args[i++] = token;
+		token = strtok(NULL, " ");
 	}
-	else if (pid == 0)
+	args[i] = NULL;
+	if (execvp(args[0], args) == -1)
 	{
-		if (execlp(input, input, NULL) == -1)
-		{
-			perror("execve");
-			return (1);
-		}
-	}
-	else
-	{
-		if (waitpid(pid, &status, 0) == -1)
-		{
-			perror("waitpid");
-			return (1);
-		}
+		perror("execvp");
 	}
 	return (0);
 }

@@ -12,14 +12,14 @@ int main(void)
 {
 	bool running = true;
 	char input[1024];
-
 	while (running)
 	{
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "#shell_dial_sb3$", 16);
 		else
 			running = false;
-		if (fgets(input, sizeof(input), stdin) == NULL)
+		fgets(input, sizeof(input), stdin)
+		if (input == NULL)
 		{
 			break;
 		}

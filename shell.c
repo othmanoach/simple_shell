@@ -25,6 +25,10 @@ int main(void)
             running = false;
             continue;
         }
+		else
+		{
+			system(input);
+		}
     }
     
     return 0;

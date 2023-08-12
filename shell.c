@@ -1,10 +1,13 @@
 #include "shell.h"
-void shell_helper(char *input);
+/**
+ * main - function that executes the shell
+ *
+ * Return: Always 0.
+ */
 int main(void)
 {
 	bool running = true;
 	char input[MAX_INPUT_LENGTH];
-	int status;
 
 	while (running)
 	{
@@ -17,42 +20,45 @@ int main(void)
 		{
 			break;
 		}
-		shell_helper(input);
-	}
-
-	return 0;
-}
-
-void shell_helper(char *input)
-{
-	if (input[0] == '\n')
+		if (input[0] == '\n')
 			continue;
 
 		if (_strcmp(input, "exit\n") == 0)
 		{
-			running = false;
-			continue;
+				running = false;
+				continue;
 		}
-		else
-		 {
-			pid_t pid = fork();
+		shell_helper(input);
+	}
+	return (0);
+}
+/**
+ * shell_helper - function that executes the shell
+ *
+ * @input: pointer to string.
+ * Return: Always 0.
+ */
+int shell_helper(char *input)
+{
+	pid_t pid = fork();
+	int status;
 
-			if (pid == -1)
-			{
-				perror("fork");
-				return 1;
-			}
-			else if (pid == 0)
-			{
-				if (execlp(input, input, NULL) == -1)
-				{
-					perror("execve");
-					return 1;
-				}
-			}
-			else
-			{
-				waitpid(pid, &status, 0);
-			}
+	if (pid == -1)
+	{
+		perror("fork");
+		return (1);
+	}
+	else if (pid == 0)
+	{
+		if (execlp(input, input, NULL) == -1)
+		{
+			perror("execve");
+			return (1);
 		}
+	}
+	else
+	{
+		waitpid(pid, &status, 0);
+	}
+	return (0);
 }

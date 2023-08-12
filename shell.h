@@ -47,6 +47,12 @@ void _puts(char *str);
 
 /* --------------String functions------------------- */
 
+
+
+
+
+
+
 /* --------------Memory functions------------------- */
 
 /* copies a memory area */

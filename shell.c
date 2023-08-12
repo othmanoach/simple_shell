@@ -20,7 +20,7 @@ int main(void)
         if (input[0] == '\n')
             continue;
         
-        if (strcmp(input, "exit\n") == 0)
+        if (_strcmp(input, "exit\n") == 0)
         {
             running = false;
             continue;

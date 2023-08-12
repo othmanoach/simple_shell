@@ -4,7 +4,10 @@ int main(void)
 {
     bool running = true;
     char input[MAX_INPUT_LENGTH];
-    
+    char *args[MAX_INPUT_LENGTH];
+    char *token = strtok(input, " ");
+    int i = 0;
+
     while (running)
     {
         if (isatty(STDIN_FILENO))
@@ -16,20 +19,30 @@ int main(void)
         {
             break;
         }
-        
+
         if (input[0] == '\n')
             continue;
-        
+
         if (_strcmp(input, "exit\n") == 0)
         {
             running = false;
             continue;
         }
 		else
-		{
-			execve(input, NULL, NULL);
-		}
+		 {
+            input[strlen(input) - 1] = '\0';
+            while (token != NULL)
+            {
+                args[i++] = token;
+                token = strtok(NULL, " ");
+            }
+            args[i] = NULL;
+            if (execvp(args[0], args) == -1)
+            {
+                perror("execvp");
+            }
+        }
     }
-    
+
     return 0;
 }

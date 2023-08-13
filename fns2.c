@@ -43,11 +43,13 @@ int executeCommand(char **arguments, char *buffer)
 			while (i < 3) {waitpid(processID, &status, 0);
 				if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
 					exitCode = 2;
-				i++;}}
+				i++;}
+			}
 		if (_strcmp(commandPath, arguments[0]) != 0)
 			free(commandPath);
 	}
-	return (exitCode);}
+	return (exitCode);
+}
 
 /**
  * getEnvVariable - gets an environment variable

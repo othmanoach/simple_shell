@@ -9,13 +9,13 @@
 #include <stdbool.h>
 #include <sys/stat.h>
 #include <ctype.h>
+#include <stddef.h>
 
 /* Global variables */
 #define MAX_INPUT_LENGTH 1024
+extern char **environ;
 
 /* ------------String functions--------------------- */
-/* Function prototype */
-int shell_helper(char *input);
 
 /* calculates the length of a string */
 int _strlen(char *str); 
@@ -59,5 +59,22 @@ void _puts(char *str);
 char *_memcpy(char *dest, char *src, unsigned int n); 
 
 /* --------------Memory functions------------------- */
+
+
+
+/* --------------Prototype functions------------------- */
+
+
+int handleBuiltIn(char **tokens, char *buffer);
+int envFunction(void);
+int exitFunction(char **tokens, char *buffer);
+int _atoi(char *nptr);
+void freeArguments(char **arguments);
+int executeCommand(char **arguments, char *buffer);
+char *getEnvVariable(char *name);
+char *getCommandPath(char *command);
+void splitInput(char *inputBuffer, char **tokenArray);
+
+/* --------------Prototype functions------------------- */
 
 #endif /* SHELL_H */

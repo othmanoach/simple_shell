@@ -1,4 +1,10 @@
 #include "shell.h"
+/**
+ * executeCommand - executes a command
+ * @arguments: array of arguments
+ * @buffer: buffer that holds the user input
+ * Return: 0 if successful, 1 if not
+ */
 int executeCommand(char **arguments, char *buffer)
 {
 	pid_t processID;
@@ -11,7 +17,7 @@ int executeCommand(char **arguments, char *buffer)
 		if (!commandPath)
 		{
 			_puts("Not found");
-			return 2;
+			return (2);
 		}
 		processID = fork();
 		if (processID == -1)
@@ -38,9 +44,13 @@ int executeCommand(char **arguments, char *buffer)
 		if (_strcmp(commandPath, arguments[0]) != 0)
 			free(commandPath);
 	}
-	return exitCode;
+	return (exitCode);
 }
-
+/**
+ * getEnvVariable - gets an environment variable
+ * @name: name of the environment variable
+ * Return: pointer to the environment variable
+ */
 char *getEnvVariable(char *name)
 {
 	int i = 0;
@@ -49,11 +59,15 @@ char *getEnvVariable(char *name)
 	for (; environ[i]; i++)
 	{
 		if (strncmp(environ[i], name, len) == 0 && environ[i][len] == '=')
-			return &environ[i][len + 1];
+			return (&environ[i][len + 1]);
 	}
 	return (NULL);
 }
-
+/**
+ * getCommandPath - gets the path of a command
+ * @command: command to get the path of
+ * Return: pointer to the path
+ */
 char *getCommandPath(char *command)
 {
 	char *path, *pathCopy, *pathToken, *filePath;
@@ -78,7 +92,7 @@ char *getCommandPath(char *command)
 			if (stat(filePath, &buffer) == 0)
 			{
 				free(pathCopy);
-				return filePath;
+				return (filePath);
 			}
 			else
 			{
@@ -89,14 +103,18 @@ char *getCommandPath(char *command)
 		free(pathCopy);
 		if (stat(command, &buffer) == 0)
 		{
-			return command;
+			return (command);
 		}
 		return (NULL);
 	}
 
 	return (NULL);
 }
-
+/**
+ * splitInput - splits the input into tokens
+ * @inputBuffer: buffer that holds the user input
+ * @tokenArray: array of tokens
+ */
 void splitInput(char *inputBuffer, char **tokenArray)
 {
 	size_t tokenLength;

@@ -1,5 +1,8 @@
 #include "shell.h"
-
+/**
+ * main - main function of the shell
+ * Return: 0 on success
+ */
 int main(void)
 {
 	bool isRunning = true;
@@ -37,5 +40,5 @@ int main(void)
 		bufferSize = 0;
 	}
 	free(inputBuffer);
-	return exitStatus;
+	return (exitStatus);
 }

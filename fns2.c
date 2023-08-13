@@ -28,7 +28,7 @@ int executeCommand(char **arguments, char *buffer)
         }
         if (processID == 0)
         {
-            int out_fd = dup(STDOUT_FILENO); // Save the standard output
+            int out_fd = dup(STDOUT_FILENO);
             close(STDOUT_FILENO);
             if (dup2(out_fd, STDOUT_FILENO) == -1)
             {

@@ -12,24 +12,10 @@
 
 /* Global variables */
 #define MAX_INPUT_LENGTH 1024
-extern char **env;
 
 /* ------------String functions--------------------- */
 /* Function prototype */
 int shell_helper(char *input);
-
-/* Define _puts function */
-void _puts(char *str) {
-    /* Implementation of _puts */
-}
-
-/* Define _strcmp function */
-int _strcmp(char *s1, char *s2) {
-    /* Implementation of _strcmp */
-}
-
-/* Define env variable */
-char **env;
 
 /* calculates the length of a string */
 int _strlen(char *str); 

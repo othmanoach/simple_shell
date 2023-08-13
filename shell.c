@@ -68,7 +68,7 @@ int shell_helper(char *input)
 
 	if (child_pid == 0)
 	{
-		execve(args[0], args, env);
+		execve(args[0], args, NULL);
 		perror("shell_dial_sb3");
 		exit(1);
 	}

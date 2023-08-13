@@ -24,26 +24,28 @@ int executeCommand(char **arguments, char *buffer)
 		processID = fork();
 		if (processID == -1)
 		{perror("fork");
-			exit(EXIT_FAILURE);}
+			exit(EXIT_FAILURE); }
 		if (processID == 0)
 		{
 			int out_fd = dup(STDOUT_FILENO);
+
 			close(STDOUT_FILENO);
 			if (dup2(out_fd, STDOUT_FILENO) == -1)
 			{perror("dup2");
-			exit(EXIT_FAILURE);}
+			exit(EXIT_FAILURE); }
 
 			if (execve(commandPath, arguments, environ) == -1)
 			{perror("execve");
 				freeArguments(arguments);
 				free(buffer);
-				exit(2);}
+				exit(2); }
 		}
-		else{int status;
+		else
+			{int status;
 			while (i < 3) {waitpid(processID, &status, 0);
 				if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
 					exitCode = 2;
-				i++;}
+				i++; }
 			}
 		if (_strcmp(commandPath, arguments[0]) != 0)
 			free(commandPath);

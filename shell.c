@@ -35,10 +35,7 @@ int main(void)
 		if (*inputBuffer == '\n' || (*inputBuffer == ' ' || *inputBuffer == '\t'))
 			continue;
 		splitInput(inputBuffer, tokenArray);
-		while (++i > 0) { /* Loop to print output three times */
 		exitStatus = executeCommand(tokenArray, inputBuffer);
-        i--;
-		}
 	freeArguments(tokenArray);
 	free(inputBuffer);
 	inputBuffer = NULL;

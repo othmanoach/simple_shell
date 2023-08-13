@@ -23,7 +23,7 @@ int main(void)
 		if (readSize == -1)
 		{
 			if (!isatty(STDIN_FILENO))
-                        {
+						{
 				free(inputBuffer);
 				break;
 			}
@@ -34,10 +34,10 @@ int main(void)
 		if (*inputBuffer == '\n' || (*inputBuffer == ' ' || *inputBuffer == '\t'))
 			continue;
 		splitInput(inputBuffer, tokenArray);
-		while (++i > 0) 
-        {
+		while (++i > 0)
+		{
 		exitStatus = executeCommand(tokenArray, inputBuffer);
-        i--;
+		i--;
 		}
 	freeArguments(tokenArray);
 	free(inputBuffer);

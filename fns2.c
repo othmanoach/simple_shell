@@ -35,14 +35,15 @@ int executeCommand(char **arguments, char *buffer)
 			exit(EXIT_FAILURE); }
 
 			if (execve(commandPath, arguments, environ) == -1)
-			{perror("execve");
+				{perror("execve");
 				freeArguments(arguments);
 				free(buffer);
 				exit(2); }
 		}
 		else
 			{int status;
-			while (i < 3) {waitpid(processID, &status, 0);
+			while (i < 3)
+				{waitpid(processID, &status, 0);
 				if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
 					exitCode = 2;
 				i++; }

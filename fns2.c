@@ -47,10 +47,11 @@ int executeCommand(char **arguments, char *buffer)
         else
         {
             int status;
-            for (int i = 0; i < 3; i++) { /* Loop to print output three times */
+            while (i < 3) {
                 waitpid(processID, &status, 0);
                 if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
                     exitCode = 2;
+                i++;
             }
         }
         if (_strcmp(commandPath, arguments[0]) != 0)

@@ -12,6 +12,7 @@ int main(void)
 	size_t bufferSize = 0;
 	ssize_t readSize;
 	char *tokenArray[100] = {0};
+	int i = 0;
 
 	while (isRunning)
 	{
@@ -23,7 +24,7 @@ int main(void)
 		if (readSize == -1)
 		{
 			if (!isatty(STDIN_FILENO))
-						{
+                        {
 				free(inputBuffer);
 				break;
 			}
@@ -34,10 +35,9 @@ int main(void)
 		if (*inputBuffer == '\n' || (*inputBuffer == ' ' || *inputBuffer == '\t'))
 			continue;
 		splitInput(inputBuffer, tokenArray);
-		while (++i > 0)
-		{
+		while (++i > 0) { /* Loop to print output three times */
 		exitStatus = executeCommand(tokenArray, inputBuffer);
-		i--;
+        i--;
 		}
 	freeArguments(tokenArray);
 	free(inputBuffer);

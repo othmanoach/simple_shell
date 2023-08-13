@@ -1,4 +1,5 @@
 #include "shell.h"
+
 /**
  * main - main function of the shell
  * Return: 0 on success
@@ -22,7 +23,7 @@ int main(void)
 		if (readSize == -1)
 		{
 			if (!isatty(STDIN_FILENO))
-			{
+                        {
 				free(inputBuffer);
 				break;
 			}
@@ -33,11 +34,13 @@ int main(void)
 		if (*inputBuffer == '\n' || (*inputBuffer == ' ' || *inputBuffer == '\t'))
 			continue;
 		splitInput(inputBuffer, tokenArray);
+		for (int i = 0; i < 3; i++) { /* Loop to print output three times */
 		exitStatus = executeCommand(tokenArray, inputBuffer);
-		freeArguments(tokenArray);
-		free(inputBuffer);
-		inputBuffer = NULL;
-		bufferSize = 0;
+		}
+	freeArguments(tokenArray);
+	free(inputBuffer);
+	inputBuffer = NULL;
+	bufferSize = 0;
 	}
 	free(inputBuffer);
 	return (exitStatus);

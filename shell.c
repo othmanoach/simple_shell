@@ -12,7 +12,6 @@ int main(void)
 	size_t bufferSize = 0;
 	ssize_t readSize;
 	char *tokenArray[100] = {0};
-	int i = 0;
 
 	while (isRunning)
 	{

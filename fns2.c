@@ -7,18 +7,15 @@
  * Return: 0 if successful, 1 if not
  */
 int executeCommand(char **arguments, char *buffer)
-{
-	pid_t processID;
+{	pid_t processID;
 	char *commandPath = NULL;
 	int exitCode = handleBuiltIn(arguments, buffer);
 	int i = 0;
 
 	if (exitCode == -1)
-	{
-		commandPath = getCommandPath(arguments[0]);
+		{commandPath = getCommandPath(arguments[0]);
 		if (!commandPath)
-		{
-			_puts("Not found");
+		{	_puts("Not found");
 			return (2);
 		}
 		processID = fork();
@@ -26,8 +23,7 @@ int executeCommand(char **arguments, char *buffer)
 		{perror("fork");
 			exit(EXIT_FAILURE); }
 		if (processID == 0)
-		{
-			int out_fd = dup(STDOUT_FILENO);
+			{int out_fd = dup(STDOUT_FILENO);
 
 			close(STDOUT_FILENO);
 			if (dup2(out_fd, STDOUT_FILENO) == -1)

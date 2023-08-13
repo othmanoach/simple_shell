@@ -34,7 +34,8 @@ int main(void)
 		if (*inputBuffer == '\n' || (*inputBuffer == ' ' || *inputBuffer == '\t'))
 			continue;
 		splitInput(inputBuffer, tokenArray);
-		while (++i > 0) { /* Loop to print output three times */
+		while (++i > 0) 
+        {
 		exitStatus = executeCommand(tokenArray, inputBuffer);
         i--;
 		}

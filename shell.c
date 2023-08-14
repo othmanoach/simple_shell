@@ -23,7 +23,7 @@ int main(void)
 		if (readSize == -1)
 		{
 			if (!isatty(STDIN_FILENO))
-                        {
+						{
 				free(inputBuffer);
 				break;
 			}

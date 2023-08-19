@@ -1,80 +1,101 @@
 #ifndef SHELL_H
 #define SHELL_H
-/* Libraries */
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <stdbool.h>
-#include <sys/stat.h>
-#include <ctype.h>
-#include <stddef.h>
 
-/* Global variables */
-#define MAX_INPUT_LENGTH 1024
+#include <stdio.h>
+#include <signal.h>
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+
+#define BUFFER_SIZE 256
+#define ENV_SEPARATOR "="
+#define ESCAPE_SEPARATOR "#"
+#define PATH_SEPARATOR ":"
+#define COMMAND_SEPARATOR ";\n"
+#define SEPARATORS " \n"
+#define PROMPT "$ "
+
 extern char **environ;
 
-/* ------------String functions--------------------- */
+/**
+ * struct environment_s - environment variable
+ *
+ * @name: environment name
+ * @value: environment value
+ * @next: points to the next node
+ * @global: pointer to usr/bin PATH
+ */
+typedef struct environment_s
+{
+	char *name;   /* ex: PATH */
+	char *value;  /* ex: /bin:/usr/bin */
+	char *global; /* PATH=/bin:/usr/bin */
+	struct environment_s *next;
+} environment_t;
 
-/* calculates the length of a string */
-int _strlen(char *str); 
+/**
+ * struct appData_s - data variable
+ *
+ * @arguments: argument's array
+ * @buffer: buffer
+ * @commandName: command name
+ * @commandList: command list
+ * @history: array history
+ * @programName: program name
+ * @env: pointer to env variable
+ */
+typedef struct appData_s
+{
+	char **arguments;
+	char *buffer;
+	char *commandName;
+	char **commandList;
+	char **history;
+	char *programName;
+	environment_t *env;
+} appData_t;
 
-/* concatenate two strings */
-char *_strcat(char *dest, char *src);
+/**
+ * struct errorMessage_s - An structure for each error message
+ *
+ * @code: error code
+ * @msg: pointer to error message
+ *
+ */
+typedef struct errorMessage_s
+{
+	int code;
+	char *msg;
+} errorMessage_t;
 
-/* compare two strings */
-int _strcmp(char *s1, char *s2);
+/**
+ * struct customCommand_s - struct conversion to function
+ *
+ * @commandName: flag string
+ * @func: pointer to func
+ */
+typedef struct customCommand_s
+{
+	char *commandName;
+	void (*func)(appData_t *);
+} customCommand_t;
 
-/* compare two strings */
-int _strncmp(const char *s1, const char *s2, size_t n);
+environment_t *_addEnvNodeEnd(
+	environment_t **prmHeadNode,
+	char *prmGlobal
+);
 
-/* copies a string */
-char *_strcpy(char *dest, char *src);
+void _changeDirectory(appData_t *data);
+void _changeToAnyDirectory(appData_t *data, char *currentDirectory);
+void _changeToHomeDirectory(appData_t *data, char *currentDirectory);
+void _changeToPreviousDirectory(appData_t *data, char *currentDirectory);
+int _checkEndCharacter(char *inputString);
+environment_t *_addEnvNodeEnd(environment_t **head, char *globalValue);
+void _addWordToCharArray(char *word, int *currentIndex, char **stringArray);
+int customAtoi(char *inputString);
+void *_customCalloc(unsigned int numElements, unsigned int elementSize);
+void _printCdHelp(void);
 
-/* copies a string */
-char *_strncpy(char *dest, char *src, int n);
-
-/* returns a pointer to a new string which is a duplicate of the string str */
-char *_strdup(char *str);
-
-/* write a character to stdout */
-int _putchar(char c);
-
-/* write a string to stdout */
-void _puts(char *str);
-
-
-/* --------------String functions------------------- */
-
-
-
-
-
-
-
-/* --------------Memory functions------------------- */
-
-/* copies a memory area */
-char *_memcpy(char *dest, char *src, unsigned int n); 
-
-/* --------------Memory functions------------------- */
-
-
-
-/* --------------Prototype functions------------------- */
-
-
-int handleBuiltIn(char **tokens, char *buffer);
-int envFunction(void);
-int exitFunction(char **tokens, char *buffer);
-int _atoi(char *nptr);
-void freeArguments(char **arguments);
-int executeCommand(char **arguments, char *buffer);
-char *getEnvVariable(char *name);
-char *getCommandPath(char *command);
-void splitInput(char *inputBuffer, char **tokenArray);
-
-/* --------------Prototype functions------------------- */
-
-#endif /* SHELL_H */
+#endif

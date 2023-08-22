@@ -4,8 +4,8 @@
  * _strcspn - get the length of a prefix substring.s
  * @prmString: the string to searchs
  * @prmDeny: characters to denys
- * Return: a pointer to the first occurrence of the character cs
- *         in the string s, or NULL if the character is not founds
+ * Return: a pointer to the first occurrence of the character c
+ *         in the string s, or NULL if the character is not found
  */
 unsigned int _strcspn(char *prmString, char *prmDeny)s
 {

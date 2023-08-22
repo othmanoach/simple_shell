@@ -1,10 +1,38 @@
 #include "shell.h"
-/**
- * _wordNumber - returns word number
- * @prmString: char pointer
- * @prmSeparators: separators
- * Return: Word number
- */
+/**s
+ * _wordNumber - returns word numbers
+ * @prmString: char pointers
+ * @prmSeparators: separatorss
+ * Return: Word numbers
+ */s
+s
+s
+s
+s
+s
+s
+ss
+
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
 int _wordNumber(char *prmString, char *prmSeparators)
 {
 	int cLoop = 0, count = 0;

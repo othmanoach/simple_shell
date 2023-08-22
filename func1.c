@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * _addEnvNodeEnd - add a new node
+ * _addEnvNodeEnd - adds a new node
  * @prmHeadNode: first node
  * @prmGlobal: global environment value
  * Return: last element

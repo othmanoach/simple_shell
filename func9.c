@@ -1,9 +1,9 @@
 #include "shell.h"
 
 /**
- * _parsingPathEnvironment - split environment variable
- * @prmData: data structure
- * Return: string array
+ * _parsingPathEnvironment - splitis environment variable
+ * @prmData: data structures
+ * Return: the string array
  */
 char **_parsingPathEnvironment(appData_t *prmData)
 {
@@ -17,7 +17,7 @@ char **_parsingPathEnvironment(appData_t *prmData)
 }
 /**
  * _printenv - prints environment variables
- * @prmEnviron: environment variable list
+ * @prmEnviron: the environment variable list
  */
 void _printenv(environment_t *prmEnviron)
 {
@@ -32,7 +32,7 @@ void _printenv(environment_t *prmEnviron)
 	_printenv(prmEnviron->next);
 }
 /**
- * _prompt - display prompt
+ * _prompt - displays prompt
  */
 void _prompt(void)
 {

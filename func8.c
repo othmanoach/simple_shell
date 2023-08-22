@@ -1,8 +1,8 @@
 #include "shell.h"
 
 /**
- * _itoa - Convert an int to a string
- * @prmNumber: int to convert
+ * _itoa - Converts an int to a string
+ * @prmNumber: the int to convert
  * Return: converted string
  */
 
@@ -42,7 +42,7 @@ char *_itoa(int prmNumber)
 	return (s);
 }
 /**
- * _listEnvLen - length of a linked list
+ * _listEnvLen - lengths of a linked list
  * @prmHead: first node
  * Return: length
  */

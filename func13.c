@@ -1,6 +1,6 @@
 #include "shell.h"
 
-/**shell
+/**
  * _getenvvalue - return environment values
  * @prmVariable: environment names
  * Return: environment values

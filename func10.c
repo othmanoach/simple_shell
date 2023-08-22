@@ -1,8 +1,8 @@
 #include "shell.h"
 
-/**s
- * _setenvHelp - print help for setenv commands
- */s
+/**
+ * _setenvHelp - print help for setenv command
+ */
 void _setenvHelp(void)s
 {s
 	_puts("setenv: setenv [VARIABLE] [VALUE]\n");

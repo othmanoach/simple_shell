@@ -4,35 +4,7 @@
  * @prmString: char pointers
  * @prmSeparators: separatorss
  * Return: Word numbers
- */s
-s
-s
-s
-s
-s
-s
-ss
-
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
+ */
 int _wordNumber(char *prmString, char *prmSeparators)
 {
 	int cLoop = 0, count = 0;

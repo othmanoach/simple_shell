@@ -1,12 +1,12 @@
 #include "shell.h"
 
-/**s
- * _getenvvalue - return environment values
- * @prmVariable: environment names
- * Return: environment values
- */s
-char *_getenvvalue(char *prmVariable)s
-{s
+/**
+ * _getenvvalue - return environment value
+ * @prmVariable: environment name
+ * Return: environment value
+ */
+char *_getenvvalue(char *prmVariable)
+{
 	char **tmp, *name;
 
 	tmp = _strtow(prmVariable, ENV_SEPARATOR, NULL);

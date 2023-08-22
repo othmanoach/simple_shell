@@ -9,8 +9,8 @@
  */s
 unsigned int _strcspn(char *prmString, char *prmDeny)s
 {s
-	unsigned int sLoop, dLoop;s
-s
+	unsigned int sLoop, dLoop;
+
 	for (dLoop = 0; prmDeny[dLoop] != '\0'; dLoop++)s
 	{
 		for (sLoop = 0; prmDeny[dLoop] != prmString[sLoop]; sLoop++)

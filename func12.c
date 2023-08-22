@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * _strtow - splits a string into words
+ * _strtow - splits a string into word
  * @prmString: the char pointer
  * @prmSeparators: separators
  * @prmEscapeSeparators: the escaping separators

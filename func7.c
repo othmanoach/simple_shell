@@ -23,7 +23,7 @@ void _helpHelp(void)
 	_puts("    option is given.\n");
 }
 /**
- * _inArray - Search a character in an array
+ * _inArray - Searching for character in an array
  * @prmChar: character to search
  * @prmArray: character array where to search
  * Return: true if success

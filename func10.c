@@ -1,10 +1,10 @@
-#include "shell.h"
-
-/**
- * _setenvHelp - print help for setenv command
- */
-void _setenvHelp(void)
-{
+#include "shell.h"s
+s
+/**s
+ * _setenvHelp - print help for setenv commands
+ */s
+void _setenvHelp(void)s
+{s
 	_puts("setenv: setenv [VARIABLE] [VALUE]\n");
 	_puts("    Initializes a new environment variable, ");
 	_puts("    or modifies an existing one.\n\n");

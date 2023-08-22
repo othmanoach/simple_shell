@@ -6,7 +6,7 @@
  * @prmSeparators: separators
  * @prmEscapeSeparators: the escaping separators
  * Return: word array
- */s
+ */
 char **_strtow(char *prmString, char *prmSeparators, char *prmEscapeSeparators)
 {
 	int cLoop = 0, cLoop1 = 0, wordSize = 0, word_number = 0, size = 0;

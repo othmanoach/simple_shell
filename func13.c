@@ -86,4 +86,46 @@ environment_t *_getEnvNodeAtIndex(
 
 	return (NULL);
 }
+/**
+ * _changeDirectory - change current directory
+ * @prmData: data structure
+ */
+void _changeDirectory(appData_t *prmData)
+{
+	char currentDirectory[500];
 
+	getcwd(currentDirectory, 500);
+
+	if (prmData == NULL)
+		return;
+
+	if (
+		!prmData->arguments[1] ||
+		_strcmp(prmData->arguments[1], "~") == 0 ||
+		_strcmp(prmData->arguments[1], "~/") == 0
+	)
+		_changeToHomeDirectory(prmData, currentDirectory);
+	else if (_strcmp(prmData->arguments[1], "-") == 0)
+		_changeToPreviousDirectory(prmData, currentDirectory);
+	else
+		_changeToAnyDirectory(prmData, currentDirectory);
+}
+/**
+ * _changeToAnyDirectory - change to any directory
+ * @prmData: data structure
+ * @prmCurrentDirectory: current directory path
+ */
+void _changeToAnyDirectory(appData_t *prmData, char *prmCurrentDirectory)
+{
+	char *newDirectory;
+
+	newDirectory = prmData->arguments[1];
+
+	if (access(newDirectory, R_OK | W_OK) == 0)
+	{
+		chdir(newDirectory);
+		_setenv(prmData->env, "OLDPWD", prmCurrentDirectory, 1);
+	}
+	else
+		perror(newDirectory);
+}

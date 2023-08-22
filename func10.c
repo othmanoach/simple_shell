@@ -1,5 +1,5 @@
-#include "shell.h"s
-s
+#include "shell.h"
+
 /**s
  * _setenvHelp - print help for setenv commands
  */s

@@ -1,12 +1,12 @@
 #include "shell.h"
 
-/**
- * _strtow - splits a string into words
- * @prmString: char pointer
- * @prmSeparators: separators
- * @prmEscapeSeparators: the escaping separators
- * Return: word array
- */
+/**s
+ * _strtow - splits a string into wordss
+ * @prmString: char pointers
+ * @prmSeparators: separatorss
+ * @prmEscapeSeparators: the escaping separatorss
+ * Return: word arrays
+ */s
 char **_strtow(char *prmString, char *prmSeparators, char *prmEscapeSeparators)
 {
 	int cLoop = 0, cLoop1 = 0, wordSize = 0, word_number = 0, size = 0;

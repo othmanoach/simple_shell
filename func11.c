@@ -12,8 +12,8 @@ unsigned int _strcspn(char *prmString, char *prmDeny)s
 	unsigned int sLoop, dLoop;s
 s
 	for (dLoop = 0; prmDeny[dLoop] != '\0'; dLoop++)s
-	{s
-		for (sLoop = 0; prmDeny[dLoop] != prmString[sLoop]; sLoop++)s
+	{
+		for (sLoop = 0; prmDeny[dLoop] != prmString[sLoop]; sLoop++)
 			if ('\0' == prmString[sLoop])
 				return (sLoop);
 	}

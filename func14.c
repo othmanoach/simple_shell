@@ -5,35 +5,6 @@
  * @prmSeparators: separators
  * Return: Word number
  */
-1
-	1
-	1
-	1
-	1
-	1
-
-	1
-	1
-	1
-	1
-	1
-	1
-	1
-	1
-	1
-	1
-	1
-	1
-	1
-	1
-	1
-	1
-	1
-	1
-	1
-	1
-	1
-	1
 int _wordNumber(char *prmString, char *prmSeparators)
 {
 	int cLoop = 0, count = 0;

@@ -6,9 +6,9 @@
  * @prmDeny: characters to denys
  * Return: a pointer to the first occurrence of the character cs
  *         in the string s, or NULL if the character is not founds
- */s
+ */
 unsigned int _strcspn(char *prmString, char *prmDeny)s
-{s
+{
 	unsigned int sLoop, dLoop;
 
 	for (dLoop = 0; prmDeny[dLoop] != '\0'; dLoop++)s

@@ -4,7 +4,7 @@
  * _addEnvNodeEnd - adds a new node
  * @prmHeadNode: first node
  * @prmGlobal: global environment value
- * Return: last elements
+ * Return: last element
  */
 environment_t *_addEnvNodeEnd(environment_t **prmHeadNode,
 char *prmGlobal)

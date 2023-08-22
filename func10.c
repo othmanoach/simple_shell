@@ -3,7 +3,7 @@
 /**
  * _setenvHelp - print help for setenv command
  */
-void _setenvHelp(void)
+void _setenvHelp(void)e
 {
 	_puts("setenv: setenv [VARIABLE] [VALUE]\n");
 	_puts("    Initializes a new environment variable, ");

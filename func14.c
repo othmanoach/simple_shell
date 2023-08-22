@@ -3,7 +3,7 @@
  * _wordNumber - returns word number
  * @prmString: char pointer
  * @prmSeparators: separators
- * Return: Word number
+ * Return: Word numbers
  */
 int _wordNumber(char *prmString, char *prmSeparators)
 {

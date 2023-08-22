@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * _changeToHomeDirectory - changing to home directory
+ * _changeToHomeDirectory - changs to home directory
  * @prmData: data structure
  * @prmCurrentDirectory: current directory path
  */

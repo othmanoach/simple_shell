@@ -1,5 +1,5 @@
 #include "shell.h"
-r
+
 /**
  * _addEnvNodeEnd - adds a new node
  * @prmHeadNode: first node

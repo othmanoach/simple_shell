@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * _cleanString - erases the begin spaces and ending spaces from string
+ * _cleanString - erase the begin spaces and ending spaces from string
  * @prmString: string to clean
  * Return: clean string
  */

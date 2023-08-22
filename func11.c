@@ -2,7 +2,7 @@
 
 /**
  * _strcspn - get the length of a prefix substring.
- * @prmString: string to search
+ * @prmString: the string to search
  * @prmDeny: characters to deny
  * Return: a pointer to the first occurrence of the character c
  *         in the string s, or NULL if the character is not found

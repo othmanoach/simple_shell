@@ -2,7 +2,7 @@
 
 /**
  * _strtow - splits a string into words
- * @prmString: char pointer
+ * @prmString: the char pointer
  * @prmSeparators: separators
  * @prmEscapeSeparators: escaping separators
  * Return: word array

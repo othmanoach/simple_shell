@@ -1,6 +1,6 @@
 #include "shell.h"
 /**
- * main - Entry point
+ * main - main entry point
  * @argc: Number of arguments
  * @argv: Arguments
  * Return: EXIT_SUCCESS or EXIT_FAILURE

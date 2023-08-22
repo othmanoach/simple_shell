@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * _helpHelp - print help for help command
+ * _helpHelp - prints help for help command
  */
 void _helpHelp(void)
 {

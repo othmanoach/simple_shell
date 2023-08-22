@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * _strcspn - gets the length of a prefix substring.
+ * _strcspn - get the length of a prefix substring.
  * @prmString: string to search
  * @prmDeny: characters to deny
  * Return: a pointer to the first occurrence of the character c

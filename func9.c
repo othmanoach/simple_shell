@@ -16,7 +16,7 @@ char **_parsingPathEnvironment(appData_t *prmData)
 	return (paths);
 }
 /**
- * _printenv - print environment variables
+ * _printenv - prints environment variables
  * @prmEnviron: environment variable list
  */
 void _printenv(environment_t *prmEnviron)

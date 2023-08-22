@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * _freeAppData - free all pointer of the appllication
+ * _freeAppData - frees all pointer of the appllication
  * @prmData: data structure
  */
 void _freeAppData(appData_t *prmData)

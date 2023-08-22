@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * _env - prints environement variable
+ * _env - print environement variable
  * @prmData: data structure
  */
 void _env(appData_t *prmData)

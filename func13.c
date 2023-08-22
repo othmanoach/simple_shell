@@ -21,7 +21,7 @@ char *_getenvvalue(char *prmVariable)
 	return (name);
 }
 
-/**
+/**s
  * _getline - Return command line type by user
  * @prmData: data structure
  * Return: buffer

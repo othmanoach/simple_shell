@@ -23,7 +23,7 @@ char *env_get_key(char *key, data_of_program *data)
 			return (data->env[i] + key_length + 1);
 		}
 	}
-	
+
 	return (NULL);
 }
 

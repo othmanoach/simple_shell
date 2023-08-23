@@ -37,7 +37,7 @@ int find_program(data_of_program *data)
 		directories[i] = str_concat(directories[i], data->tokens[0]);
 		ret_code = check_file(directories[i]);
 		if (ret_code == 0 || ret_code == 126)
-		{/* the file was found, is not a directory and has execute permisions*/
+		{/* the file was found, is not a directory and has cmd_exec permisions*/
 			errno = 0;
 			free(data->tokens[0]);
 			data->tokens[0] = str_duplicate(directories[i]);

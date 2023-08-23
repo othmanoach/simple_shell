@@ -13,24 +13,24 @@ int main(int argc, char *argv[], char *env[])
 
 	inicialize_data(data, argc, argv, env);
 
-	signal(SIGINT, handle_ctrl_c);
+	signal(SIGINT, ctrl_c);
 
 	if (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO) && argc == 1)
-	{/* We are in the terminal, interactive mode */
-		errno = 2;/*???????*/
+	{
+		errno = 2;
 		prompt = PROMPT_MSG;
 	}
 	errno = 0;
-	sisifo(prompt, data);
+	prpt_msg(prompt, data);
 	return (0);
 }
 
 /**
- * handle_ctrl_c - print the prompt in a new line
+ * ctrl_c - print the prompt in a new line
  * when the signal SIGINT (ctrl + c) is send to the program
  * @UNUSED: option of the prototype
  */
-void handle_ctrl_c(int opr UNUSED)
+void ctrl_c(int opr UNUSED)
 {
 	_print("\n");
 	_print(PROMPT_MSG);
@@ -59,10 +59,10 @@ void inicialize_data(data_of_program *data, int argc, char *argv[], char **env)
 		data->file_descriptor = open(argv[1], O_RDONLY);
 		if (data->file_descriptor == -1)
 		{
-			_printe(data->program_name);
-			_printe(": 0: Can't open ");
-			_printe(argv[1]);
-			_printe("\n");
+			print_arr(data->program_name);
+			print_arr(": 0: Can't open ");
+			print_arr(argv[1]);
+			print_arr("\n");
 			exit(127);
 		}
 	}
@@ -85,32 +85,32 @@ void inicialize_data(data_of_program *data, int argc, char *argv[], char **env)
 	}
 }
 /**
- * sisifo - its a infinite loop that shows the prompt
+ * prpt_msg - its a infinite loop that shows the prompt
  * @prompt: prompt to be printed
  * @data: its a infinite loop that shows the prompt
  */
-void sisifo(char *prompt, data_of_program *data)
+void prpt_msg(char *prompt, data_of_program *data)
 {
 	int error_code = 0, string_len = 0;
 
 	while (++(data->exec_counter))
 	{
 		_print(prompt);
-		error_code = string_len = _getline(data);
+		error_code = string_len = my_get_line(data);
 
 		if (error_code == EOF)
 		{
 			free_all_data(data);
-			exit(errno); /* if EOF is the fisrt Char of string, exit*/
+			exit(errno);
 		}
 		if (string_len >= 1)
 		{
-			expand_alias(data);
-			expand_variables(data);
+			alias_exp(data);
+			var_exp(data);
 			tokenize(data);
 			if (data->tokens[0])
-			{ /* if a text is given to prompt, execute */
-				error_code = execute(data);
+			{
+				error_code = cmd_exec(data);
 				if (error_code != 0)
 					_print_error(error_code, data);
 			}

@@ -26,9 +26,9 @@ int print_alias(data_of_program *data, char *alias)
 						break;
 				}
 				buffer[j + 1] = '\0';
-				buffer_add(buffer, "'");
-				buffer_add(buffer, data->alias_list[i] + j + 1);
-				buffer_add(buffer, "'\n");
+				make_buff(buffer, "'");
+				make_buff(buffer, data->alias_list[i] + j + 1);
+				make_buff(buffer, "'\n");
 				_print(buffer);
 			}
 		}
@@ -102,8 +102,8 @@ int set_alias(char *alias_string, data_of_program *data)
 	/* add the alias */
 	if (temp)
 	{/* if the alias already exist */
-		buffer_add(buffer, "=");
-		buffer_add(buffer, temp);
+		make_buff(buffer, "=");
+		make_buff(buffer, temp);
 		data->alias_list[j] = str_duplicate(buffer);
 	}
 	else /* if the alias does not exist */

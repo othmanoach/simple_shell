@@ -1,19 +1,19 @@
 #include "shell.h"
 
 /**
- * expand_variables - expand variables
+ * var_exp - expand variables
  * @data: a pointer to a struct of the program's data
  *
  * Return: nothing, but sets errno.
  */
-void expand_variables(data_of_program *data)
+void var_exp(data_of_program *data)
 {
 	int i, j;
 	char line[BUFFER_SIZE] = {0}, expansion[BUFFER_SIZE] = {'\0'}, *temp;
 
 	if (data->input_line == NULL)
 		return;
-	buffer_add(line, data->input_line);
+	make_buff(line, data->input_line);
 	for (i = 0; line[i]; i++)
 		if (line[i] == '#')
 			line[i--] = '\0';
@@ -21,15 +21,15 @@ void expand_variables(data_of_program *data)
 		{
 			line[i] = '\0';
 			long_to_string(errno, expansion, 10);
-			buffer_add(line, expansion);
-			buffer_add(line, data->input_line + i + 2);
+			make_buff(line, expansion);
+			make_buff(line, data->input_line + i + 2);
 		}
 		else if (line[i] == '$' && line[i + 1] == '$')
 		{
 			line[i] = '\0';
 			long_to_string(getpid(), expansion, 10);
-			buffer_add(line, expansion);
-			buffer_add(line, data->input_line + i + 2);
+			make_buff(line, expansion);
+			make_buff(line, data->input_line + i + 2);
 		}
 		else if (line[i] == '$' && (line[i + 1] == ' ' || line[i + 1] == '\0'))
 			continue;
@@ -39,9 +39,9 @@ void expand_variables(data_of_program *data)
 				expansion[j - 1] = line[i + j];
 			temp = env_get_key(expansion, data);
 			line[i] = '\0', expansion[0] = '\0';
-			buffer_add(expansion, line + i + j);
-			temp ? buffer_add(line, temp) : 1;
-			buffer_add(line, expansion);
+			make_buff(expansion, line + i + j);
+			temp ? make_buff(line, temp) : 1;
+			make_buff(line, expansion);
 		}
 	if (!str_compare(data->input_line, line, 0))
 	{
@@ -51,12 +51,12 @@ void expand_variables(data_of_program *data)
 }
 
 /**
- * expand_alias - expans aliases
+ * alias_exp - expans aliases
  * @data: a pointer to a struct of the program's data
  *
  * Return: nothing, but sets errno.
  */
-void expand_alias(data_of_program *data)
+void alias_exp(data_of_program *data)
 {
 	int i, j, was_expanded = 0;
 	char line[BUFFER_SIZE] = {0}, expansion[BUFFER_SIZE] = {'\0'}, *temp;
@@ -64,7 +64,7 @@ void expand_alias(data_of_program *data)
 	if (data->input_line == NULL)
 		return;
 
-	buffer_add(line, data->input_line);
+	make_buff(line, data->input_line);
 
 	for (i = 0; line[i]; i++)
 	{
@@ -76,11 +76,11 @@ void expand_alias(data_of_program *data)
 		if (temp)
 		{
 			expansion[0] = '\0';
-			buffer_add(expansion, line + i + j);
+			make_buff(expansion, line + i + j);
 			line[i] = '\0';
-			buffer_add(line, temp);
+			make_buff(line, temp);
 			line[str_length(line)] = '\0';
-			buffer_add(line, expansion);
+			make_buff(line, expansion);
 			was_expanded = 1;
 		}
 		break;
@@ -93,12 +93,12 @@ void expand_alias(data_of_program *data)
 }
 
 /**
- * buffer_add - append string at end of the buffer
+ * make_buff - append string at end of the buffer
  * @buffer: buffer to be filled
  * @str_to_add: string to be copied in the buffer
  * Return: nothing, but sets errno.
  */
-int buffer_add(char *buffer, char *str_to_add)
+int make_buff(char *buffer, char *str_to_add)
 {
 	int length, i;
 

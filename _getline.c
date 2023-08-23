@@ -1,12 +1,12 @@
 #include "shell.h"
 
 /**
-* _getline - read one line from the prompt.
+* my_get_line - read one line from the prompt.
 * @data: struct for the program's data
 *
 * Return: reading counting bytes.
 */
-int _getline(data_of_program *data)
+int my_get_line(data_of_program *data)
 {
 	char buff[BUFFER_SIZE] = {'\0'};
 	static char *array_commands[10] = {NULL};
@@ -35,7 +35,7 @@ int _getline(data_of_program *data)
 		do {
 			array_commands[i] = str_duplicate(_strtok(i ? NULL : buff, "\n;"));
 			/*checks and split for && and || operators*/
-			i = check_logic_ops(array_commands, i, array_operators);
+			i = check_and_or(array_commands, i, array_operators);
 		} while (array_commands[i++]);
 	}
 
@@ -52,14 +52,14 @@ int _getline(data_of_program *data)
 
 
 /**
-* check_logic_ops - checks and split for && and || operators
+* check_and_or - checks and split for && and || operators
 * @array_commands: array of the commands.
 * @i: index in the array_commands to be checked
 * @array_operators: array of the logical operators for each previous command
 *
 * Return: index of the last command in the array_commands.
 */
-int check_logic_ops(char *array_commands[], int i, char array_operators[])
+int check_and_or(char *array_commands[], int i, char array_operators[])
 {
 	char *temp = NULL;
 	int j;

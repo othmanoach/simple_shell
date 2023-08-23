@@ -4,12 +4,12 @@
 .SH SYNOPSIS
 .B shellby\fR [\fIfilename\fR]
 .SH DESCRIPTION
-.B Shellby\fR is a simple UNIX command language interpreter that reads commands from either a file or standard input and executes them.
+.B Shellby\fR is a simple UNIX command language interpreter that reads commands from either a file or standard input and cmd_execs them.
 
 .B Invocation
 .in +2n
 \fBShellby\fR can be invoked both interactively and non-interactively.
-If \fBshellby\fR is invoked with standard input not connected to a terminal, it reads and executes received commands in order.
+If \fBshellby\fR is invoked with standard input not connected to a terminal, it reads and cmd_execs received commands in order.
 
 If \fBshellby\fR is invoked with standard input connected to a terminal (determined by \fIisatty(3)\fR), an \fIinteractive\fR shell is opened.
 When executing interactively, \fBshellby\fR displays the prompt \fI$ \fR when it is ready to read a command.
@@ -43,12 +43,12 @@ If there exists a shell builtin by that name, the builtin is invoked.
 
 .RS
 3. If the first character of the command is a slash (\fI\\\fR) or dot (\fI.\fR) or either of the above searches was successful,
-the shell executes the named program with any remaining arguments given in a separate execution environment.
+the shell cmd_execs the named program with any remaining arguments given in a separate execution environment.
 .RE
 
 .B Exit Status
 .in +2n
-.B Shellby\fR returns the exit status of the last command executed, unless a syntax error occurs, with zero indicating success and non-zero indicating failure.
+.B Shellby\fR returns the exit status of the last command cmd_execd, unless a syntax error occurs, with zero indicating success and non-zero indicating failure.
 
 If a command is not found, the return status is 127; if a command is found but is not executable, the return status is 126.
 
@@ -70,7 +70,7 @@ Alternatively, an input of end-of-file (\fBCtrl+d\fR) will exit the program.
 .RE
 
 .RS
-.B $?\fR			\fI?\fR is substituted with the return value of the last program executed.
+.B $?\fR			\fI?\fR is substituted with the return value of the last program cmd_execd.
 .RE
 
 .RS
@@ -88,17 +88,17 @@ Alternatively, an input of end-of-file (\fBCtrl+d\fR) will exit the program.
 .RS
 .B ;\fR - Command separator
 .RS
-Commands separated by a \fI;\fR are executed sequentially.
+Commands separated by a \fI;\fR are cmd_execd sequentially.
 .RE
 
 .B &&\fR - AND logical operator
 .RS
-.I command1\fR && \fIcommand2\fR: \fIcommand2\fR is executed if, and only if, \fIcommand1\fR returns an exit status of zero.
+.I command1\fR && \fIcommand2\fR: \fIcommand2\fR is cmd_execd if, and only if, \fIcommand1\fR returns an exit status of zero.
 .RE
 
 .B ||\fR - OR logical operator
 .RS
-.I command1\fR || \fIcommand2\fR: \fIcommand2\fR is executed if, and only if, \fIcommand1\fR returns a non-zero exit status.
+.I command1\fR || \fIcommand2\fR: \fIcommand2\fR is cmd_execd if, and only if, \fIcommand1\fR returns a non-zero exit status.
 .RE
 
 The operators \fI&&\fR and \fI||\fR have equal precedence, followed by \fI;\fR.

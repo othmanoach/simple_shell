@@ -1,16 +1,16 @@
 #include "shell.h"
 /**
- * execute - execute a command with its entire path variables.
+ * cmd_exec - cmd_exec a command with its entire path variables.
  * @data: a pointer to the program's data
  * Return: If sucess returns zero, otherwise, return -1.
  */
-int execute(data_of_program *data)
+int cmd_exec(data_of_program *data)
 {
 	int retval = 0, status;
 	pid_t pidd;
 
 	/* check for program in built ins */
-	retval = builtins_list(data);
+	retval = lst_builtins(data);
 	if (retval != -1)/* if program was found in built ins */
 		return (retval);
 
@@ -29,7 +29,7 @@ int execute(data_of_program *data)
 			exit(EXIT_FAILURE);
 		}
 		if (pidd == 0)
-		{/* I am the child process, I execute the program*/
+		{/* I am the child process, I cmd_exec the program*/
 			retval = execve(data->tokens[0], data->tokens, data->env);
 			if (retval == -1) /* if error when execve*/
 				perror(data->command_name), exit(EXIT_FAILURE);

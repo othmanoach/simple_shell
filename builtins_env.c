@@ -11,29 +11,28 @@ int builtin_env(data_of_program *data)
 	char cpname[50] = {'\0'};
 	char *var_copy = NULL;
 
-	/* if not arguments */
+
 	if (data->tokens[1] == NULL)
 		print_environ(data);
 	else
 	{
 		for (i = 0; data->tokens[1][i]; i++)
-		{/* checks if exists a char = */
+		{
 			if (data->tokens[1][i] == '=')
-			{/* checks if exists a var with the same name and change its value*/
-			/* temporally */
+			{
 				var_copy = str_duplicate(env_get_key(cpname, data));
 				if (var_copy != NULL)
 					env_set_key(cpname, data->tokens[1] + i + 1, data);
 
-				/* print the environ */
+
 				print_environ(data);
 				if (env_get_key(cpname, data) == NULL)
-				{/* print the variable if it does not exist in the environ */
+				{
 					_print(data->tokens[1]);
 					_print("\n");
 				}
 				else
-				{/* returns the old value of the var*/
+				{
 					env_set_key(cpname, var_copy, data);
 					free(var_copy);
 				}
@@ -55,7 +54,7 @@ int builtin_env(data_of_program *data)
  */
 int builtin_set_env(data_of_program *data)
 {
-	/* validate args */
+
 	if (data->tokens[1] == NULL || data->tokens[2] == NULL)
 		return (0);
 	if (data->tokens[3] != NULL)
@@ -77,7 +76,7 @@ int builtin_set_env(data_of_program *data)
  */
 int builtin_unset_env(data_of_program *data)
 {
-	/* validate args */
+
 	if (data->tokens[1] == NULL)
 		return (0);
 	if (data->tokens[2] != NULL)

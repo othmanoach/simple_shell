@@ -46,7 +46,7 @@ int _atoi(char *s)
 {
 	int sign = 1;
 	unsigned int number = 0;
-	/*1- analisys sign*/
+
 	while (!('0' <= *s && *s <= '9') && *s != '\0')
 	{
 		if (*s == '-')
@@ -56,7 +56,6 @@ int _atoi(char *s)
 		s++;
 	}
 
-	/*2 - extract the number */
 	while ('0' <= *s && *s <= '9' && *s != '\0')
 	{
 

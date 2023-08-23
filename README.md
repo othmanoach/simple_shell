@@ -1,47 +1,4 @@
-# Simple Shell
-
-Welcome to the Simple Shell repository! This project is an implementation of a basic shell that allows users to execute commands and interact with the underlying operating system.
-
-## Features
-
-- Command Execution: Run various system commands just like in a standard shell.
-- Basic Built-in Commands: Includes basic built-in commands such as `cd` (change directory) and `exit` (exit the shell).
-- Background Processes: Run processes in the background using the `&` symbol.
-- Signal Handling: Handle signals like Ctrl+C (SIGINT) and Ctrl+Z (SIGTSTP).
-Resources
-Read or watch:
-
-Unix shell
-Thompson shell
-Ken Thompson
-Everything you need to know to start coding your own shell concept page
-man or help:
-
-sh (Run sh as well)
-Learning Objectives
-At the end of this project, you are expected to be able to explain to anyone, without the help of Google:
-
-General
-Who designed and implemented the original Unix operating system
-Who wrote the first version of the UNIX shell
-Who invented the B programming language (the direct predecessor to the C programming language)
-Who is Ken Thompson
-How does a shell work
-What is a pid and a ppid
-How to manipulate the environment of the current process
-What is the difference between a function and a system call
-How to create processes
-What are the three prototypes of main
-How does the shell use the PATH to find the programs
-How to execute another program with the execve system call
-How to suspend the execution of a process until one of its children terminates
-What is EOF / “end-of-file”?
-Copyright - Plagiarism
-You are tasked to come up with solutions for the tasks below yourself to meet with the above learning objectives.
-You will not be able to meet the objectives of this or any following project by copying and pasting someone else’s work.
-You are not allowed to publish any content of this project.
-Any form of plagiarism is strictly forbidden and will result in removal from the program.
-Requirements
+# simple_shell
 General
 Allowed editors: vi, vim, emacs
 All your files will be compiled on Ubuntu 20.04 LTS using gcc, using the options -Wall -Werror -Wextra -pedantic -std=gnu89
@@ -54,7 +11,3 @@ All your header files should be include guarded
 Use system calls only when you need to (why?)
 Write a README with the description of your project
 You should have an AUTHORS file at the root of your repository, listing all individuals having contributed content to the repository. Format, see Docker
-
-
-
-## HOPE YOU LIKE THE PROJECT

@@ -1,165 +1,249 @@
 #ifndef SHELL_H
 #define SHELL_H
 
-#include <stdio.h>
-#include <signal.h>
+#include <stdio.h> /* for printf*/
+#include <unistd.h> /* for fork, execve*/
 #include <stdlib.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
+#include <string.h> /* for strtok*/
+#include <stddef.h>
+#include <errno.h> /* for errno and perror */
+#include <sys/types.h> /* for type pid */
+#include <sys/wait.h> /* for wait */
+#include <sys/stat.h> /* for use of stat function */
+#include <signal.h> /* for signal management */
+#include <fcntl.h> /* for open files*/
 
-#define BUFFER_SIZE 256
-#define ENV_SEPARATOR "="
-#define ESCAPE_SEPARATOR "#"
-#define PATH_SEPARATOR ":"
-#define COMMAND_SEPARATOR ";\n"
-#define SEPARATORS " \n"
-#define PROMPT "$|SHELL_DIAL_SBE3>"
+/************* MACROS **************/
 
-extern char **environ;
+#include "macros.h" /* for msg help and prompt */
 
-/**
- * struct environment_s - environment variable
- *
- * @name: environment name
- * @value: environment value
- * @next: points to the next node
- * @global: pointer to usr/bin PATH
- */
-typedef struct environment_s
-{
-	char *name;   /* ex: PATH */
-	char *value;  /* ex: /bin:/usr/bin */
-	char *global; /* PATH=/bin:/usr/bin */
-	struct environment_s *next;
-} environment_t;
+/************* STRUCTURES **************/
 
 /**
- * struct appData_s - data variable
- *
- * @arguments: argument's array
- * @buffer: buffer
- * @commandName: command name
- * @commandList: command list
- * @history: array history
- * @programName: program name
- * @env: pointer to env variable
+ * struct info- struct for the program's data
+ * @program_name: the name of the executable
+ * @input_line: pointer to the input read for _getline
+ * @command_name: pointer to the first command typed by the user
+ * @exec_counter: number of excecuted comands
+ * @file_descriptor: file descriptor to the input of commands
+ * @tokens: pointer to array of tokenized input
+ * @env: copy of the environ
+ * @alias_list: array of pointers with aliases.
  */
-typedef struct appData_s
+typedef struct info
 {
-	char **arguments;
-	char *buffer;
-	char *commandName;
-	char **commandList;
-	char **history;
-	char *programName;
-	environment_t *env;
-} appData_t;
+	char *program_name;
+	char *input_line;
+	char *command_name;
+	int exec_counter;
+	int file_descriptor;
+	char **tokens;
+	char **env;
+	char **alias_list;
+} data_of_program;
 
 /**
- * struct errorMessage_s - An structure for each error message
- *
- * @code: error code
- * @msg: pointer to error message
- *
+ * struct builtins - struct for the builtins
+ * @builtin: the name of the builtin
+ * @function: the associated function to be called for each builtin
  */
-typedef struct errorMessage_s
+typedef struct builtins
 {
-	int code;
-	char *msg;
-} errorMessage_t;
+	char *builtin;
+	int (*function)(data_of_program *data);
+} builtins;
 
-/**
- * struct customCommand_s - struct conversion to function
- *
- * @commandName: flag string
- * @func: pointer to func
- */
-typedef struct customCommand_s
-{
-	char *commandName;
-	void (*func)(appData_t *);
-} customCommand_t;
 
-environment_t *_addEnvNodeEnd(
-	environment_t **prmHeadNode,
-	char *prmGlobal
-);
-void _addWord(char *prmWord, int *prmIndex, char **prmArray);
-int _atoi(char *prmString);
-void *_calloc(unsigned int prmNumber, unsigned int prmSize);
-void _cdHelp(void);
-void _changeDirectory(appData_t *prmData);
-void _changeToAnyDirectory(appData_t *prmData, char *prmCurrentDirectory);
-void _changeToHomeDirectory(appData_t *prmData, char *prmCurrentDirectory);
-void _changeToPreviousDirectory(appData_t *prmData, char *prmCurrentDirectory);
-int _checkEndCharacter(char *prmString);
-int _checkEscapeSeparators(char prmChar, char *prmEscapeSeparators);
-int _checkSeparators(char prmChar, char *prmSeparators);
-char *_cleanString(char *prmString);
-environment_t *_createEnvNode(char *prmGlobal);
-void _ctrlC(int prmSignal);
-void _defaultHelp(char *prmCommand);
-int _deleteEnvNode(environment_t *prmHead, char *prmName);
-void _prompt(void);
-void _env(appData_t *prmData);
-void _envHelp(void);
-void _errorHandler(appData_t *prmData, int messageCode);
-void _execCommand(appData_t *prmData);
-void _exitStatus(appData_t *prmData);
-void _exitHelp(void);
-void _freeAppData(appData_t *prmData);
-void _freeCharDoublePointer(char **prmPtr);
-void _freeEnvList(environment_t *prmHeadNode);
-char *_generateAbsolutePath(char *prmPath, char *prmCommandName);
-char *_generateEnvGlobal(char *prmName, char *prmValue);
-void (*_getCustomFunction(char *prmCommand))(appData_t *);
-environment_t *_getenv(environment_t *prmEnviron, char *prmName);
-char *_getenvname(char *prmVariable);
-char *_getenvvalue(char *prmVariable);
-int _getEnvIndex(environment_t *prmHead, char *prmName);
-environment_t *_getEnvNodeAtIndex(
-	environment_t *prmHead,
-	unsigned int prmIndex
-);
-environment_t *_getLastEnvNode(environment_t *prmHeadNode);
-void _getline(appData_t *prmData);
-char *_getword(char *prmGlobal, int prmOffset, int prmSize);
-void _help(appData_t *prmData);
-void _helpHelp(void);
-int _inArray(char prmChar, char *prmArray);
-appData_t *_initData(char **prmArgv);
-void _initEnvData(appData_t *prmData);
-int _isdigit(char prmChar);
-int _isNumber(char *s);
-char *_itoa(int prmNumber);
-int _listEnvLen(environment_t *prmHead);
-char *_memcpy(char *prmDest, char *prmSrc, unsigned int prmLimit);
-char *_memset(char *prmString, char prmCharacter, unsigned int prmLimit);
-int _nbrLen(int prmNumber);
-char **_parsingPathEnvironment(appData_t *prmData);
-void _printenv(environment_t *prmEnviron);
-int _putchar(char prmChar);
-int _puts(char *prmStr);
-void *_realloc(void *prmPtr, unsigned int prmOldSize, unsigned int prmNewSize);
-void _setenv(environment_t *prmEnviron, char *prmName, char *prmValue, int prmOverwrite);
-void _setenvHelp(void);
-void _setEnvironment(appData_t *prmData);
-char *_strcat(char *prmDest, char *prmSrc);
-int _strcmp(char *prmString1, char *prmString2);
-char *_strcpy(char *prmDest, char *prmSrc);
-char *_strconcat(char *prmString1, char *prmString2);
-char *_strncpy(char *prmDest, char *prmSrc, int prmLimit);
-unsigned int _strcspn(char *prmString, char *prmDeny);
-char *_strdup(char *prmString);
-int _strlen(char *prmStr);
-char *_strstr(char *prmHaystack, char *prmNeedle, int prmBegin);
-char **_strtow(char *prmString, char *prmSeparators, char *prmEscapeSeparators);
-void _unsetenv(appData_t *prmData, char *prmName);
-void _unsetenvHelp(void);
-void _unsetEnvironment(appData_t *prmData);
-char *_which(appData_t *prmData);
-int _wordNumber(char *prmString, char *prmSeparators);
+/************* MAIN FUNCTIONS *************/
 
-#endif
+
+/*========  shell.c  ========*/
+
+/* Inicialize the struct with the info of the program */
+void inicialize_data(data_of_program *data, int arc, char *argv[], char **env);
+
+/* Makes the infinite loop that shows the prompt*/
+void sisifo(char *prompt, data_of_program *data);
+
+/* Print the prompt in a new line */
+void handle_ctrl_c(int opr UNUSED);
+
+
+/*========  _getline.c  ========*/
+
+/* Read one line of the standar input*/
+int _getline(data_of_program *data);
+
+/* split the each line for the logical operators if it exist */
+int check_logic_ops(char *array_commands[], int i, char array_operators[]);
+
+
+/*======== expansions.c ========*/
+
+/* expand variables */
+void expand_variables(data_of_program *data);
+
+/* expand aliases */
+void expand_alias(data_of_program *data);
+
+/* append the string to the end of the buffer*/
+int buffer_add(char *buffer, char *str_to_add);
+
+
+/*======== str_tok.c ========*/
+
+/* Separate the string in tokens using a designed delimiter */
+void tokenize(data_of_program *data);
+
+/* Creates a pointer to a part of a string */
+char *_strtok(char *line, char *delim);
+
+
+/*======== execute.c ========*/
+
+/* Execute a command with its entire path */
+int execute(data_of_program *data);
+
+
+/*======== builtins_list.c ========*/
+
+/* If match a builtin, executes it */
+int builtins_list(data_of_program *data);
+
+
+/*======== find_in_path.c ========*/
+
+/* Creates an array of the path directories */
+char **tokenize_path(data_of_program *data);
+
+/* Search for program in path */
+int find_program(data_of_program *data);
+
+
+/************** HELPERS FOR MEMORY MANAGEMENT **************/
+
+
+/*======== helpers_free.c ========*/
+
+/* Frees the memory for directories */
+void free_array_of_pointers(char **directories);
+
+/* Free the fields needed each loop */
+void free_recurrent_data(data_of_program *data);
+
+/* Free all field of the data */
+void free_all_data(data_of_program *data);
+
+
+/************** BUILTINS **************/
+
+
+/*======== builtins_more.c ========*/
+
+/* Close the shell */
+int builtin_exit(data_of_program *data);
+
+/* Change the current directory */
+int builtin_cd(data_of_program *data);
+
+/* set the work directory */
+int set_work_directory(data_of_program *data, char *new_dir);
+
+/* show help information */
+int builtin_help(data_of_program *data);
+
+/* set, unset and show alias */
+int builtin_alias(data_of_program *data);
+
+
+/*======== builtins_env.c ========*/
+
+/* Shows the environment where the shell runs */
+int builtin_env(data_of_program *data);
+
+/* create or override a variable of environment */
+int builtin_set_env(data_of_program *data);
+
+/* delete a variable of environment */
+int builtin_unset_env(data_of_program *data);
+
+
+/************** HELPERS FOR ENVIRONMENT VARIABLES MANAGEMENT **************/
+
+
+/*======== env_management.c ========*/
+
+/* Gets the value of an environment variable */
+char *env_get_key(char *name, data_of_program *data);
+
+/* Overwrite the value of the environment variable */
+int env_set_key(char *key, char *value, data_of_program *data);
+
+/* Remove a key from the environment */
+int env_remove_key(char *key, data_of_program *data);
+
+/* prints the current environ */
+void print_environ(data_of_program *data);
+
+
+/************** HELPERS FOR PRINTING **************/
+
+
+/*======== helpers_print.c ========*/
+
+/* Prints a string in the standar output */
+int _print(char *string);
+
+/* Prints a string in the standar error */
+int _printe(char *string);
+
+/* Prints a string in the standar error */
+int _print_error(int errorcode, data_of_program *data);
+
+
+/************** HELPERS FOR STRINGS MANAGEMENT **************/
+
+
+/*======== helpers_string.c ========*/
+
+/* Counts the number of characters of a string */
+int str_length(char *string);
+
+/* Duplicates an string */
+char *str_duplicate(char *string);
+
+/* Compares two strings */
+int str_compare(char *string1, char *string2, int number);
+
+/* Concatenates two strings */
+char *str_concat(char *string1, char *string2);
+
+/* Reverse a string */
+void str_reverse(char *string);
+
+
+/*======== helpers_numbers.c ========*/
+
+/* Cast from int to string */
+void long_to_string(long number, char *string, int base);
+
+/* convert an string in to a number */
+int _atoi(char *s);
+
+/* count the coincidences of character in string */
+int count_characters(char *string, char *character);
+
+
+/*======== alias_management.c ========*/
+
+/* print the list of alias */
+int print_alias(data_of_program *data, char *alias);
+
+/* get the alias name */
+char *get_alias(data_of_program *data, char *alias);
+
+/* set the alias name */
+int set_alias(char *alias_string, data_of_program *data);
+
+
+#endif /* SHELL_H */
